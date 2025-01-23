@@ -1,17 +1,34 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { VehiculosService } from '../../services/vehiculos.service';
 
 @Component({
   selector: 'app-vehiculos',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './vehiculos.component.html',
   styleUrl: './vehiculos.component.scss'
 })
-export class VehiculosComponent {
+export class VehiculosComponent implements OnInit {
+  vehiculos: any[] = [];
 
-  vehiculos = [
-    { id: 1, patente: 'JGDS-22', marca: 'PEUGEOT', modelo: 'BOXER HDI', anno: 2017, estado: 'Operativa' },
-    { id: 2, patente: 'CVHT-74', marca: 'MITSUBISHI', modelo: 'L300', anno: 2011, estado: 'En Mantenimiento' },
-    { id: 3, patente: 'HGTS-15', marca: 'PEUGEOT', modelo: 'BOXER HDI', anno: 2017, estado: 'Dada de Baja' },
-  ];
+  constructor(private vehiculosService: VehiculosService) { }
 
+  ngOnInit(): void {
+    this.cargarVehiculos();
+  }
+
+  cargarVehiculos(): void {
+    this.vehiculosService.getVehiculos().subscribe({
+      next: (data) => {
+        this.vehiculos = data;
+      },
+      error: (error) => {
+        console.error('Error al obtener los vehículos:', error);
+      },
+      complete: () => {
+        console.log('Carga de vehículos completada');
+      },
+    });
+
+  }
 }
