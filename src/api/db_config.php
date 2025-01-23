@@ -2,7 +2,7 @@
 function getDatabaseConnection($dbName)
 {
     $host = "localhost";
-    $user = "carnesag_transportes"; // Usuario de la base de datos
+    $user = "carnesag_soporteag"; // Usuario de la base de datos
     $password = "7598-Ag.L"; // Contraseña de la base de datos
 
     // Crear conexión a la base de datos especificada
