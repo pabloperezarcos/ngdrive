@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">NgDrive</a>
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="assets/logo/ngdrive_sinletras.png" alt="NgDrive Logo" width="40" height="40" class="me-2">
+            NgDrive
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -8,13 +11,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+                    <a class="nav-link" routerLink="/dashboard">Inicio</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Vehículos</a>
+                    <a class="nav-link" routerLink="/vehiculos">Vehículos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Ajustes</a>
+                    <a class="nav-link" routerLink="/ajustes">Ajustes</a>
                 </li>
             </ul>
         </div>
