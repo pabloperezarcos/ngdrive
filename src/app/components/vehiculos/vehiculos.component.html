@@ -17,14 +17,13 @@
                 </tr>
             </thead>
             <tbody>
-                <!-- Aquí se renderizarán los vehículos -->
-                <tr>
-                    <td>1</td>
-                    <td>JGDS-22</td>
-                    <td>PEUGEOT</td>
-                    <td>BOXER HDI</td>
-                    <td>2017</td>
-                    <td>Operativa</td>
+                <tr *ngFor="let vehiculo of vehiculos; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>{{ vehiculo.patente }}</td>
+                    <td>{{ vehiculo.marca }}</td>
+                    <td>{{ vehiculo.modelo }}</td>
+                    <td>{{ vehiculo.anno }}</td>
+                    <td>{{ vehiculo.estado }}</td>
                     <td>
                         <button class="btn btn-sm btn-warning">Editar</button>
                         <button class="btn btn-sm btn-danger">Eliminar</button>
