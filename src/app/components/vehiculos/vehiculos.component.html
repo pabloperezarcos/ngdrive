@@ -3,33 +3,38 @@
     <div class="d-flex justify-content-end my-3">
         <button class="btn btn-primary">Añadir Vehículo</button>
     </div>
-    <div class="table-responsive">
+    <div *ngIf="vehiculos.length > 0; else loading">
         <table class="table table-striped">
             <thead class="table-dark">
                 <tr>
-                    <th>#</th>
                     <th>Patente</th>
                     <th>Marca</th>
                     <th>Modelo</th>
                     <th>Año</th>
                     <th>Estado</th>
-                    <th>Acciones</th>
+                    <th>Modificar</th>
+                    <th>Ocultar</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let vehiculo of vehiculos; let i = index">
-                    <td>{{ i + 1 }}</td>
                     <td>{{ vehiculo.patente }}</td>
-                    <td>{{ vehiculo.marca }}</td>
-                    <td>{{ vehiculo.modelo }}</td>
+                    <td>{{ vehiculo.marca | titlecase }}</td>
+                    <td>{{ vehiculo.modelo | titlecase }}</td>
                     <td>{{ vehiculo.anno }}</td>
-                    <td>{{ vehiculo.estado }}</td>
+                    <td>{{ vehiculo.estado | titlecase }}</td>
                     <td>
-                        <button class="btn btn-sm btn-warning">Editar</button>
-                        <button class="btn btn-sm btn-danger">Eliminar</button>
+                        <button class="btn btn-warning btn-sm">Modificar</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger btn-sm">Ocultar</button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
+    <ng-template #loading>
+        <p>Cargando vehículos...</p>
+    </ng-template>
+
 </div>
