@@ -49,5 +49,21 @@ export class VehiculosService {
     return this.http.put<any>(apiUrl, vehiculo);
   }
 
+  /* 
+    METODOS PARA COMBUSTIBLE
+  */
+  registrarCarga(carga: any): Observable<any> {
+    const apiUrl = 'https://www.carnesag.cl/ngdrive/api/registrarCarga.php';
+    return this.http.post<any>(apiUrl, carga);
+  }
+
+  getKilometrajeAnterior(vehiculoId: number): Observable<any> {
+    const apiUrl = `https://www.carnesag.cl/ngdrive/api/obtenerKilometrajeAnterior.php?vehiculo_id=${vehiculoId}`;
+    return this.http.get<any>(apiUrl);
+  }
+
+
+
+
 
 }
