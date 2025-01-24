@@ -1,7 +1,7 @@
 <div class="container my-4">
     <h1 class="text-center">Gestión de Vehículos</h1>
     <div class="d-flex justify-content-end my-3">
-        <button class="btn btn-primary">Añadir Vehículo</button>
+        <button class="btn btn-primary" [routerLink]="['/crear-vehiculo']">Añadir Vehículo</button>
     </div>
     <div *ngIf="vehiculos.length > 0; else loading">
         <table class="table table-striped">
@@ -24,7 +24,8 @@
                     <td>{{ vehiculo.anno }}</td>
                     <td>{{ vehiculo.estado | titlecase }}</td>
                     <td>
-                        <button class="btn btn-warning btn-sm">Modificar</button>
+                        <button class="btn btn-warning btn-sm"
+                            [routerLink]="['/editar-vehiculo', vehiculo.id_vehiculo]">Modificar</button>
                     </td>
                     <td>
                         <button class="btn btn-danger btn-sm">Ocultar</button>
