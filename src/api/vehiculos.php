@@ -5,11 +5,7 @@ header("Content-Type: application/json; charset=utf-8");
 
 // Permitir solicitudes desde cualquier origen
 header("Access-Control-Allow-Origin: *");
-
-// Permitir métodos HTTP específicos (GET, POST, OPTIONS)
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
-
-// Permitir las cabeceras necesarias
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
 
 // Detener ejecución si es una solicitud de verificación previa (OPTIONS)
