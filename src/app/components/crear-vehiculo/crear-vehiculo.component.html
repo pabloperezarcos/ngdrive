@@ -1,0 +1,48 @@
+<div class="container my-4">
+    <h1 class="text-center">Crear Vehículo</h1>
+    <form #vehiculoForm="ngForm" (ngSubmit)="crearVehiculo()">
+        <div class="mb-3">
+            <label for="patente" class="form-label">Patente</label>
+            <input type="text" id="patente" name="patente" class="form-control" [(ngModel)]="vehiculo.patente"
+                required />
+        </div>
+        <div class="mb-3">
+            <label for="dv" class="form-label">DV</label>
+            <input type="text" id="dv" name="dv" class="form-control" [(ngModel)]="vehiculo.dv" maxlength="1"
+                required />
+        </div>
+        <div class="mb-3">
+            <label for="marca" class="form-label">Marca</label>
+            <input type="text" id="marca" name="marca" class="form-control" [(ngModel)]="vehiculo.marca" required />
+        </div>
+        <div class="mb-3">
+            <label for="modelo" class="form-label">Modelo</label>
+            <input type="text" id="modelo" name="modelo" class="form-control" [(ngModel)]="vehiculo.modelo" required />
+        </div>
+        <div class="mb-3">
+            <label for="anno" class="form-label">Año</label>
+            <input type="number" id="anno" name="anno" class="form-control" [(ngModel)]="vehiculo.anno" required />
+        </div>
+        <div class="mb-3">
+            <label for="nro_motor" class="form-label">Nro. Motor</label>
+            <input type="text" id="nro_motor" name="nro_motor" class="form-control" [(ngModel)]="vehiculo.nro_motor"
+                required />
+        </div>
+        <div class="mb-3">
+            <label for="nro_chasis" class="form-label">Nro. Chasis</label>
+            <input type="text" id="nro_chasis" name="nro_chasis" class="form-control" [(ngModel)]="vehiculo.nro_chasis"
+                required />
+        </div>
+        <div class="mb-3">
+            <label for="estado" class="form-label">Estado</label>
+            <select id="estado" name="estado" class="form-select" [(ngModel)]="vehiculo.estado" required>
+                <option value="operativa">Operativa</option>
+                <option value="en mantenimiento">En Mantenimiento</option>
+                <option value="dada de baja">Dada de Baja</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="vehiculoForm.invalid">
+            Crear Vehículo
+        </button>
+    </form>
+</div>
