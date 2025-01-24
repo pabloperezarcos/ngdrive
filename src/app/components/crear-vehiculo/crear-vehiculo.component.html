@@ -41,6 +41,15 @@
                 <option value="dada de baja">Dada de Baja</option>
             </select>
         </div>
+        <div class="mb-3">
+            <label for="propietario" class="form-label">Propietario</label>
+            <select id="propietario" name="propietario" class="form-select"
+                [(ngModel)]="vehiculo.propietario_id_propietario" required>
+                <option *ngFor="let propietario of propietarios" [value]="propietario.id_propietario">
+                    {{ propietario.razon_social }}
+                </option>
+            </select>
+        </div>
         <button type="submit" class="btn btn-primary" [disabled]="vehiculoForm.invalid">
             Crear Vehículo
         </button>
