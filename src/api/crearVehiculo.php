@@ -25,8 +25,8 @@ $data = json_decode(file_get_contents("php://input"), true);
 try {
     $conn = getDatabaseConnection("carnesag_transportes");
 
-    $sql = "INSERT INTO Vehiculo (patente, dv, marca, modelo, anno, nro_motor, nro_chasis, estado, fecha_registro)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURDATE())";
+    $sql = "INSERT INTO Vehiculo (patente, dv, marca, modelo, anno, nro_motor, nro_chasis, estado, propietario_id_propietario, fecha_registro)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, CURDATE())";
 
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
@@ -38,7 +38,8 @@ try {
         $data['anno'],
         $data['nro_motor'],
         $data['nro_chasis'],
-        $data['estado']
+        $data['estado'],
+        $data['propietario_id_propietario']
     );
 
     if ($stmt->execute()) {

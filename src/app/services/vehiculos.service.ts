@@ -25,6 +25,18 @@ export class VehiculosService {
     return this.http.get<any>(apiUrl);
   }
 
+  // Método para obtener los propietarios
+  getPropietarios(): Observable<any> {
+    const apiUrl = 'https://www.carnesag.cl/ngdrive/api/obtenerPropietarios.php';
+    return this.http.get<any>(apiUrl);
+  }
+
+  // Método para contar la cantidad de vehículos
+  getTotalVehiculos(): Observable<any> {
+    const apiUrl = 'https://www.carnesag.cl/ngdrive/api/contarVehiculos.php';
+    return this.http.get<any>(apiUrl);
+  }
+
   // Método para agregar un vehículo
   addVehiculo(vehiculo: any): Observable<any> {
     const apiUrl = 'https://www.carnesag.cl/ngdrive/api/crearVehiculo.php';
@@ -36,6 +48,22 @@ export class VehiculosService {
     const apiUrl = `https://www.carnesag.cl/ngdrive/api/editarVehiculo.php`;
     return this.http.put<any>(apiUrl, vehiculo);
   }
+
+  /* 
+    METODOS PARA COMBUSTIBLE
+  */
+  registrarCarga(carga: any): Observable<any> {
+    const apiUrl = 'https://www.carnesag.cl/ngdrive/api/registrarCarga.php';
+    return this.http.post<any>(apiUrl, carga);
+  }
+
+  getKilometrajeAnterior(vehiculoId: number): Observable<any> {
+    const apiUrl = `https://www.carnesag.cl/ngdrive/api/obtenerKilometrajeAnterior.php?vehiculo_id=${vehiculoId}`;
+    return this.http.get<any>(apiUrl);
+  }
+
+
+
 
 
 }

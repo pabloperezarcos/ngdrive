@@ -28,10 +28,10 @@ try {
 
 
 
-    $sql = "UPDATE Vehiculo SET patente = ?, dv = ?, marca = ?, modelo = ?, anno = ?, nro_motor = ?, nro_chasis = ?, estado = ? WHERE id_vehiculo = ?";
+    $sql = "UPDATE Vehiculo SET patente = ?, dv = ?, marca = ?, modelo = ?, anno = ?, nro_motor = ?, nro_chasis = ?, estado = ?, propietario_id_propietario = ? WHERE id_vehiculo = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
-        "ssssisssi",
+        "ssssisssii",
         $data['patente'],
         $data['dv'],
         $data['marca'],
@@ -40,6 +40,7 @@ try {
         $data['nro_motor'],
         $data['nro_chasis'],
         $data['estado'],
+        $data['propietario_id_propietario'],
         $data['id_vehiculo']
     );
 

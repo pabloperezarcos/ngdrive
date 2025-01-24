@@ -20,7 +20,9 @@ export class EditarVehiculoComponent implements OnInit {
     nro_motor: '',
     nro_chasis: '',
     estado: 'operativa',
+    propietario_id_propietario: null
   };
+  propietarios: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -32,8 +34,21 @@ export class EditarVehiculoComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.obtenerVehiculo(id);
+      this.cargarPropietarios();
     }
   }
+
+  cargarPropietarios(): void {
+    this.vehiculosService.getPropietarios().subscribe({
+      next: (response) => {
+        this.propietarios = response.data;
+      },
+      error: (error) => {
+        console.error('Error al cargar propietarios:', error);
+      },
+    });
+  }
+
 
   obtenerVehiculo(id: string): void {
     this.vehiculosService.getVehiculoById(id).subscribe({

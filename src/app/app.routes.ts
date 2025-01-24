@@ -27,6 +27,13 @@ export const routes: Routes = [
         loadComponent: () => import('./components/editar-vehiculo/editar-vehiculo.component').then((c) => c.EditarVehiculoComponent),
         data: { showNavbar: true, showFooter: true },
     },
+    {
+        path: 'registrar-carga',
+        loadComponent: () =>
+            import('./components/registrar-carga/registrar-carga.component').then((c) => c.RegistrarCargaComponent),
+        data: { showNavbar: true, showFooter: true },
+    }
+
 
 
 ];

@@ -32,7 +32,18 @@ try {
     }
 
     // Consulta para obtener todos los vehículos
-    $sql = "SELECT id_vehiculo, patente, marca, modelo, anno, estado FROM Vehiculo";
+    $sql = "
+    SELECT 
+        v.id_vehiculo, 
+        v.patente, 
+        v.marca, 
+        v.modelo, 
+        v.anno, 
+        v.estado, 
+        p.razon_social AS propietario
+    FROM Vehiculo v
+    LEFT JOIN Propietario p ON v.propietario_id_propietario = p.id_propietario";
+
     $result = $conn->query($sql);
 
     // Preparar el JSON de respuesta
