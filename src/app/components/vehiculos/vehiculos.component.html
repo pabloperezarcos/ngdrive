@@ -3,44 +3,80 @@
     <div class="d-flex justify-content-end my-3">
         <button class="btn btn-primary" [routerLink]="['/crear-vehiculo']">Añadir Vehículo</button>
     </div>
+
+
     <div *ngIf="vehiculos.length > 0; else loading">
-        <table class="table  table-responsive table-striped">
-            <thead class="table-dark">
-                <tr>
-                    <th>Patente</th>
-                    <th>Logo</th>
-                    <th>Marca</th>
-                    <th>Modelo</th>
-                    <th>Año</th>
-                    <th>Estado</th>
-                    <th>Propietario</th>
-                    <th>Modificar</th>
-                    <!-- <th>Ocultar</th> -->
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let vehiculo of vehiculos; let i = index">
-                    <td>{{ vehiculo.patente }}</td>
-                    <td>
-                        <img [src]="'assets/vehiculos/' + vehiculo.marca.toLowerCase() + '.png'" [alt]="vehiculo.marca"
-                            class="img-fluid" style="width: 50px; height: auto;" />
-                    </td>
-                    <td>{{ vehiculo.marca | titlecase }}</td>
-                    <td>{{ vehiculo.modelo | titlecase }}</td>
-                    <td>{{ vehiculo.anno }}</td>
-                    <td>{{ vehiculo.estado | titlecase }}</td>
-                    <td>{{ (vehiculo.propietario || 'Sin asignar') | titlecase }}</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm"
-                            [routerLink]="['/editar-vehiculo', vehiculo.id_vehiculo]">Modificar</button>
-                    </td>
-                    <!--   <td>
+        <!-- Tabla visible solo en pantallas grandes -->
+        <div class="d-none d-lg-block">
+            <table class="table table-responsive table-striped">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Patente</th>
+                        <th>Logo</th>
+                        <th>Marca</th>
+                        <th>Modelo</th>
+                        <th>Año</th>
+                        <th>Estado</th>
+                        <th>Propietario</th>
+                        <th>Modificar</th>
+                        <!-- <th>Ocultar</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let vehiculo of vehiculos; let i = index">
+                        <td>{{ vehiculo.patente }}</td>
+                        <td>
+                            <img [src]="'assets/vehiculos/' + vehiculo.marca.toLowerCase() + '.png'"
+                                [alt]="vehiculo.marca" class="img-fluid" style="width: 50px; height: auto;" />
+                        </td>
+                        <td>{{ vehiculo.marca | titlecase }}</td>
+                        <td>{{ vehiculo.modelo | titlecase }}</td>
+                        <td>{{ vehiculo.anno }}</td>
+                        <td>{{ vehiculo.estado | titlecase }}</td>
+                        <td>{{ (vehiculo.propietario || 'Sin asignar') | titlecase }}</td>
+                        <td>
+                            <button class="btn btn-warning btn-sm"
+                                [routerLink]="['/editar-vehiculo', vehiculo.id_vehiculo]">Modificar</button>
+                        </td>
+                        <!--   <td>
                         <button class="btn btn-danger btn-sm">Ocultar</button>
                     </td> -->
-                </tr>
-            </tbody>
-        </table>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <!-- Tarjetas visibles en pantallas medianas y pequeñas -->
+        <div class="d-lg-none">
+            <div class="row g-3">
+                <div class="col-12" *ngFor="let vehiculo of vehiculos">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center">
+                                <img [src]="'assets/vehiculos/' + vehiculo.marca.toLowerCase() + '.png'"
+                                    [alt]="vehiculo.marca" class="img-fluid me-3" style="width: 50px; height: auto;" />
+                                <h5 class="card-title">{{ vehiculo.marca | titlecase }} - {{ vehiculo.modelo | titlecase
+                                    }}</h5>
+                            </div>
+                            <p class="card-text">
+                                <strong>Patente:</strong> {{ vehiculo.patente }} <br>
+                                <strong>Año:</strong> {{ vehiculo.anno }} <br>
+                                <strong>Estado:</strong> {{ vehiculo.estado | titlecase }} <br>
+                                <strong>Propietario:</strong> {{ (vehiculo.propietario || 'Sin asignar') | titlecase }}
+                            </p>
+                            <button class="btn btn-warning btn-sm"
+                                [routerLink]="['/editar-vehiculo', vehiculo.id_vehiculo]">Modificar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+
+
+
     <ng-template #loading>
         <p>Cargando vehículos...</p>
     </ng-template>
