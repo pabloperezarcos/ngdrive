@@ -1,6 +1,6 @@
 {
     "/api": {
-        "target": "https://carnesag.cl",
+        "target": "https://carnesag.cl/ngdrive",
         "secure": false,
         "changeOrigin": true,
         "logLevel": "debug"
