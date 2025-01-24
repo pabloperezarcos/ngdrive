@@ -12,6 +12,7 @@
                     <th>Modelo</th>
                     <th>Año</th>
                     <th>Estado</th>
+                    <th>Propietario</th>
                     <th>Modificar</th>
                     <th>Ocultar</th>
                 </tr>
@@ -23,6 +24,7 @@
                     <td>{{ vehiculo.modelo | titlecase }}</td>
                     <td>{{ vehiculo.anno }}</td>
                     <td>{{ vehiculo.estado | titlecase }}</td>
+                    <td>{{ (vehiculo.propietario || 'Sin asignar') | titlecase }}</td>
                     <td>
                         <button class="btn btn-warning btn-sm"
                             [routerLink]="['/editar-vehiculo', vehiculo.id_vehiculo]">Modificar</button>
