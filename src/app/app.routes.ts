@@ -17,6 +17,11 @@ export const routes: Routes = [
         loadComponent: () => import('./components/vehiculos/vehiculos.component').then(c => c.VehiculosComponent),
         data: { showNavbar: true, showFooter: true }
     },
+    {
+        path: 'crear-vehiculo',
+        loadComponent: () => import('./components/crear-vehiculo/crear-vehiculo.component').then(c => c.CrearVehiculoComponent),
+        data: { showNavbar: true, showFooter: true }
+    }
 
 
 ];
