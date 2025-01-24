@@ -25,6 +25,12 @@ export class VehiculosService {
     return this.http.get<any>(apiUrl);
   }
 
+  // Método para obtener los propietarios
+  getPropietarios(): Observable<any> {
+    const apiUrl = 'https://www.carnesag.cl/ngdrive/api/obtenerPropietarios.php';
+    return this.http.get<any>(apiUrl);
+  }
+
   // Método para agregar un vehículo
   addVehiculo(vehiculo: any): Observable<any> {
     const apiUrl = 'https://www.carnesag.cl/ngdrive/api/crearVehiculo.php';
