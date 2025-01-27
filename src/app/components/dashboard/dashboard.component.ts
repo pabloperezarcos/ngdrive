@@ -23,7 +23,9 @@ import { CargasService } from '../../services/cargas.service';
 })
 export class DashboardComponent implements OnInit {
   totalVehiculos: number = 0;
+  kilometrajeTotal: number = 0;
   gastoMes: number = 0;
+  gastoAnual: number = 0;
   public chartData: any;
   public chartOptions: any;
 
@@ -35,6 +37,8 @@ export class DashboardComponent implements OnInit {
     // Configuración de datos para el gráfico
     this.cargarTotalVehiculos();
     this.obtenerGastoMes();
+    this.obtenerGastoAnual();
+    this.obtenerKilometrajeTotal();
     this.chartData = {
       labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
       datasets: [
@@ -102,9 +106,34 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  // Método para obtener el gasto total anual
+  obtenerGastoAnual(): void {
+    this.cargasService.obtenerGastoAnual().subscribe({
+      next: (data) => {
+        if (data && data.success) {
+          this.gastoAnual = data.gasto_total_anual || 0; // Asignar el gasto anual o 0 si es null
+        } else {
+          console.error('Error al obtener el gasto anual:', data.message);
+        }
+      },
+      error: (err) => {
+        console.error('Error en la solicitud:', err);
+      }
+    });
+  }
 
-
-
+  obtenerKilometrajeTotal(): void {
+    this.cargasService.obtenerKilometrajeTotal().subscribe({
+      next: (data) => {
+        if (data && data.success) {
+          this.kilometrajeTotal = data.total_recorrido || 0; // Asignar el valor o 0 si es null
+        }
+      },
+      error: (err) => {
+        console.error('Error al obtener el kilometraje total:', err);
+      }
+    });
+  }
 
 
 }
