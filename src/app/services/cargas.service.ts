@@ -18,4 +18,11 @@ export class CargasService {
     return this.http.get<any>(this.apiUrl, { headers });
   }
 
+  // cargas.service.ts
+  obtenerGastoMes(): Observable<any> {
+    const apiUrl = 'https://www.carnesag.cl/ngdrive/api/gastosMes.php';
+    return this.http.get<any>(apiUrl);
+  }
+
+
 }
