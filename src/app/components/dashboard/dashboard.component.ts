@@ -13,6 +13,7 @@ import {
 } from 'chart.js';
 import { RouterModule } from '@angular/router';
 import { VehiculosService } from '../../services/vehiculos.service';
+import { CargasService } from '../../services/cargas.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,16 +23,22 @@ import { VehiculosService } from '../../services/vehiculos.service';
 })
 export class DashboardComponent implements OnInit {
   totalVehiculos: number = 0;
+  kilometrajeTotal: number = 0;
+  gastoMes: number = 0;
+  gastoAnual: number = 0;
   public chartData: any;
   public chartOptions: any;
 
-  constructor(private vehiculosService: VehiculosService) {
+  constructor(private vehiculosService: VehiculosService, private cargasService: CargasService) {
     Chart.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip);
   }
 
   ngOnInit(): void {
     // Configuración de datos para el gráfico
     this.cargarTotalVehiculos();
+    this.obtenerGastoMes();
+    this.obtenerGastoAnual();
+    this.obtenerKilometrajeTotal();
     this.chartData = {
       labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
       datasets: [
@@ -83,9 +90,50 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  // Método para obtener el gasto total del mes
+  obtenerGastoMes(): void {
+    this.cargasService.obtenerGastoMes().subscribe({
+      next: (data) => {
+        if (data && data.success) {
+          this.gastoMes = data.gasto_total || 0; // Asignar el gasto total o 0 si es null
+        } else {
+          console.error('Error al obtener el gasto del mes:', data.message);
+        }
+      },
+      error: (err) => {
+        console.error('Error en la solicitud:', err);
+      }
+    });
+  }
 
+  // Método para obtener el gasto total anual
+  obtenerGastoAnual(): void {
+    this.cargasService.obtenerGastoAnual().subscribe({
+      next: (data) => {
+        if (data && data.success) {
+          this.gastoAnual = data.gasto_total_anual || 0; // Asignar el gasto anual o 0 si es null
+        } else {
+          console.error('Error al obtener el gasto anual:', data.message);
+        }
+      },
+      error: (err) => {
+        console.error('Error en la solicitud:', err);
+      }
+    });
+  }
 
-
+  obtenerKilometrajeTotal(): void {
+    this.cargasService.obtenerKilometrajeTotal().subscribe({
+      next: (data) => {
+        if (data && data.success) {
+          this.kilometrajeTotal = data.total_recorrido || 0; // Asignar el valor o 0 si es null
+        }
+      },
+      error: (err) => {
+        console.error('Error al obtener el kilometraje total:', err);
+      }
+    });
+  }
 
 
 }

@@ -42,9 +42,18 @@ try {
     // Conexión a la base de datos
     $conn = getDatabaseConnection("carnesag_transportes");
 
+    // Calcular kilometraje recorrido
+    $kilometrajeRecorrido = 0;
+    if (isset($data['kilometraje_actual']) && isset($data['kilometraje_anterior'])) {
+        $kilometrajeRecorrido = $data['kilometraje_actual'] - $data['kilometraje_anterior'];
+        if ($kilometrajeRecorrido < 0) {
+            throw new Exception("El kilometraje actual no puede ser menor al anterior.");
+        }
+    }
+
     // Consulta SQL para insertar la carga
-    $sql = "INSERT INTO CargaCombustible (fecha_carga, tipo_combustible, litros_cargados, costo_por_litro, costo_total, kilometraje_actual, kilometraje_anterior, rendimiento, vehiculo_id_vehiculo)
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO CargaCombustible (fecha_carga, tipo_combustible, litros_cargados, costo_por_litro, costo_total, kilometraje_actual, kilometraje_anterior, rendimiento, kilometraje_recorrido, vehiculo_id_vehiculo)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($sql);
 
     if (!$stmt) {
@@ -62,6 +71,7 @@ try {
         $data['kilometraje_actual'],
         $data['kilometraje_anterior'],
         $data['rendimiento'],
+        $kilometrajeRecorrido,
         $data['vehiculo_id']
     );
 

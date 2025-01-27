@@ -1,0 +1,52 @@
+<div class="container my-4">
+    <h1 class="text-center">Cargas de Combustible</h1>
+
+    <!-- Filtro por vehículo -->
+    <div class="d-flex justify-content-between mb-3">
+        <div>
+            <label for="vehiculoFiltro" class="form-label">Filtrar por Vehículo:</label>
+            <select id="vehiculoFiltro" class="form-select" [(ngModel)]="vehiculoSeleccionado"
+                (change)="filtrarCargas()">
+                <option [value]="null">Todos los vehículos</option>
+                <option *ngFor="let vehiculo of vehiculos" [value]="vehiculo.patente">
+                    {{ vehiculo.patente }} - {{ vehiculo.marca }} {{ vehiculo.modelo }}
+                </option>
+            </select>
+        </div>
+        <button class="btn btn-primary" [routerLink]="['/registrar-carga']">Registrar Nueva Carga</button>
+    </div>
+
+    <!-- Tabla de cargas -->
+    <div *ngIf="cargasFiltradas.length > 0; else noCargas">
+        <table class="table table-responsive table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Vehículo</th>
+                    <th>Tipo de Combustible</th>
+                    <th>Litros Cargados</th>
+                    <th>Costo Total</th>
+                    <th>Costo por Litro</th>
+                    <th>Kilometraje Actual</th>
+                    <th>Rendimiento (km/l)</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let carga of cargasFiltradas; let i = index">
+                    <td>{{ carga.vehiculo }}</td>
+                    <td>{{ carga.tipo_combustible | titlecase }}</td>
+                    <td>{{ carga.litros_cargados | number:'1.2-2' }} L</td>
+                    <td>{{ carga.costo_total | currency:'CLP':'symbol':'1.0-0':'es-CL' }}</td>
+                    <td>{{ carga.costo_por_litro | currency:'CLP':'symbol':'1.0-0':'es-CL' }}</td>
+                    <td>{{ carga.kilometraje_actual | number:'1.0-0' }}</td>
+                    <td>{{ carga.rendimiento | number:'1.2-2' }}</td>
+                    <td>{{ carga.fecha_carga | date:'dd-MM-yyyy' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <ng-template #noCargas>
+        <p class="text-center text-muted">No se han registrado cargas de combustible.</p>
+    </ng-template>
+</div>
