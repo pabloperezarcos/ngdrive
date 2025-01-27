@@ -14,7 +14,6 @@
                 <div class="card-body">
                     <h5 class="card-title">Consumo de Combustible</h5>
                     <p class="card-text">Revisa el consumo y costos.</p>
-                    <!-- <a href="#" class="btn btn-primary">Ir</a> -->
                     <a [routerLink]="['/cargas']" class="btn btn-primary">Ir</a>
                 </div>
             </div>
@@ -45,13 +44,13 @@
             </div>
             <div class="col-12 col-md-4">
                 <div class="alert alert-success">
-                    <h4>12.345 km</h4>
+                    <h4>{{ kilometrajeTotal | number:'1.0-0' }} km</h4>
                     <p>Kilometraje total</p>
                 </div>
             </div>
             <div class="col-12 col-md-4">
                 <div class="alert alert-warning">
-                    <h4>$5.432</h4>
+                    <h4>{{ gastoAnual | currency:'CLP':'symbol':'1.0-0' }}</h4>
                     <p>Gasto total este año</p>
                 </div>
             </div>
@@ -60,6 +59,7 @@
             <div class="col-12">
                 <button class="btn btn-primary me-2" [routerLink]="['/crear-vehiculo']">Añadir Vehículo</button>
                 <button class="btn btn-secondary" [routerLink]="['/registrar-carga']">Registrar Llenado</button>
+                <button class="btn btn-info" [routerLink]="['/informes']">Generar Informes</button>
             </div>
         </div>
 
