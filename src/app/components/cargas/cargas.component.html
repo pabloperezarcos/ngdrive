@@ -36,9 +36,9 @@
                     <td>{{ carga.vehiculo }}</td>
                     <td>{{ carga.tipo_combustible | titlecase }}</td>
                     <td>{{ carga.litros_cargados | number:'1.2-2' }} L</td>
-                    <td>{{ carga.costo_total | currency:'CLP':'symbol':'1.0-0' }}</td>
-                    <td>{{ carga.costo_por_litro | currency:'CLP':'symbol':'1.0-0' }}</td>
-                    <td>{{ carga.kilometraje_actual | number }}</td>
+                    <td>{{ carga.costo_total | currency:'CLP':'symbol':'1.0-0':'es-CL' }}</td>
+                    <td>{{ carga.costo_por_litro | currency:'CLP':'symbol':'1.0-0':'es-CL' }}</td>
+                    <td>{{ carga.kilometraje_actual | number:'1.0-0' }}</td>
                     <td>{{ carga.rendimiento | number:'1.2-2' }}</td>
                     <td>{{ carga.fecha_carga | date:'dd-MM-yyyy' }}</td>
                 </tr>
