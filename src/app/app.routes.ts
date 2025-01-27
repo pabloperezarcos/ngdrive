@@ -32,6 +32,12 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./components/registrar-carga/registrar-carga.component').then((c) => c.RegistrarCargaComponent),
         data: { showNavbar: true, showFooter: true },
+    },
+    {
+        path: 'cargas',
+        loadComponent: () =>
+            import('./components/cargas/cargas.component').then((c) => c.CargasComponent),
+        data: { showNavbar: true, showFooter: true },
     }
 
 
