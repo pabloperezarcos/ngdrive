@@ -13,6 +13,7 @@ import {
 } from 'chart.js';
 import { RouterModule } from '@angular/router';
 import { VehiculosService } from '../../services/vehiculos.service';
+import { CargasService } from '../../services/cargas.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -22,16 +23,18 @@ import { VehiculosService } from '../../services/vehiculos.service';
 })
 export class DashboardComponent implements OnInit {
   totalVehiculos: number = 0;
+  gastoMes: number = 0;
   public chartData: any;
   public chartOptions: any;
 
-  constructor(private vehiculosService: VehiculosService) {
+  constructor(private vehiculosService: VehiculosService, private cargasService: CargasService) {
     Chart.register(LineController, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip);
   }
 
   ngOnInit(): void {
     // Configuración de datos para el gráfico
     this.cargarTotalVehiculos();
+    this.obtenerGastoMes();
     this.chartData = {
       labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio'],
       datasets: [
@@ -80,6 +83,22 @@ export class DashboardComponent implements OnInit {
       error: (error) => {
         console.error('Error en la solicitud:', error);
       },
+    });
+  }
+
+  // Método para obtener el gasto total del mes
+  obtenerGastoMes(): void {
+    this.cargasService.obtenerGastoMes().subscribe({
+      next: (data) => {
+        if (data && data.success) {
+          this.gastoMes = data.gasto_total || 0; // Asignar el gasto total o 0 si es null
+        } else {
+          console.error('Error al obtener el gasto del mes:', data.message);
+        }
+      },
+      error: (err) => {
+        console.error('Error en la solicitud:', err);
+      }
     });
   }
 
