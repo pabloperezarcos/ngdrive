@@ -7,8 +7,8 @@
             <label for="vehiculoFiltro" class="form-label">Filtrar por Vehículo:</label>
             <select id="vehiculoFiltro" class="form-select" [(ngModel)]="vehiculoSeleccionado"
                 (change)="filtrarCargas()">
-                <option [value]="null">Todos los vehículos</option>
-                <option *ngFor="let vehiculo of vehiculos" [value]="vehiculo.patente">
+                <option [ngValue]="null">Todos los vehículos</option>
+                <option *ngFor="let vehiculo of vehiculos" [ngValue]="vehiculo.patente">
                     {{ vehiculo.patente }} - {{ vehiculo.marca }} {{ vehiculo.modelo }}
                 </option>
             </select>
@@ -32,7 +32,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let carga of cargasFiltradas; let i = index">
+                <tr *ngFor="let carga of cargasPaginadas; let i = index">
                     <td>{{ carga.vehiculo }}</td>
                     <td>{{ carga.tipo_combustible | titlecase }}</td>
                     <td>{{ carga.litros_cargados | number:'1.2-2' }} L</td>
@@ -44,6 +44,15 @@
                 </tr>
             </tbody>
         </table>
+        <div class="d-flex justify-content-between align-items-center mt-4">
+            <button class="btn btn-secondary" (click)="previousPage()" [disabled]="currentPage === 1">Anterior</button>
+
+            <span>Página {{ currentPage }} de {{ totalPages }}</span>
+
+            <button class="btn btn-secondary" (click)="nextPage()"
+                [disabled]="currentPage === totalPages">Siguiente</button>
+        </div>
+
     </div>
 
     <ng-template #noCargas>
