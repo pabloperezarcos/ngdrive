@@ -38,7 +38,14 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./components/cargas/cargas.component').then((c) => c.CargasComponent),
         data: { showNavbar: true, showFooter: true },
-    }
+    },
+    {
+        path: 'informes',
+        loadComponent: () =>
+            import('./components/informes/informes.component').then((c) => c.InformesComponent),
+        data: { showNavbar: true, showFooter: true },
+    },
+    
 
 
 
