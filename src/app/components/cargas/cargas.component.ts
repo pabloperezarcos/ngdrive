@@ -75,35 +75,65 @@ export class CargasComponent implements OnInit {
     });
   }
 
-  // Obtiene todas las cargas de combustible
   obtenerCargas(): void {
     this.cargasService.obtenerCargas().subscribe({
       next: (data) => {
-        console.log('Cargas recibidas:', data); // Asegúrate de ver el formato de los datos
-        this.cargas = data;
-        this.cargasFiltradas = [...this.cargas];
-        //this.cargasFiltradas = data; // Inicialmente muestra todas las cargas
-        this.totalPages = Math.ceil(this.cargasFiltradas.length / this.itemsPerPage); // Calcular total de páginas
-        this.updateCargasPaginadas(); // Mostrar las cargas de la primera página
+        this.cargas = data || [];
+        // Al obtenerlas, aplicamos el filtro inicial por mes/año y vehículo
+        this.filtrarCargas();
       },
-      error: (err) => {
-        console.error('Error al obtener las cargas:', err);
-      }
+      error: (err) => console.error('Error al obtener las cargas:', err),
     });
-
   }
 
+  // ====================================================
+  //   FILTROS
+  // ====================================================
+  // Filtra las cargas según vehículo, mes y año
+  filtrarCargas(): void {
+    // 1. Partimos de la lista original de cargas
+    let filtered = [...this.cargas];
+
+    // 2. Filtro por vehículo (si se seleccionó alguno)
+    if (this.vehiculoSeleccionado !== null) {
+      filtered = filtered.filter(
+        (carga) => carga.vehiculo === this.vehiculoSeleccionado
+      );
+    }
+
+    // 3. Filtro por mes y año
+    //    Aquí asumo que `carga.fecha_carga` es una fecha válida que se pueda
+    //    transformar en un Date (p.e. 2023-01-15T00:00:00 o similar)
+    filtered = filtered.filter((carga) => {
+      const fecha = new Date(carga.fecha_carga);
+      const month = fecha.getMonth() + 1; // Enero = 0
+      const year = fecha.getFullYear();
+
+      return month === this.selectedMonth && year === this.selectedYear;
+    });
+
+    // 4. Asigno el resultado a cargasFiltradas
+    this.cargasFiltradas = filtered;
+
+    // 5. Recalculo paginación y muestro página 1
+    this.totalPages = Math.ceil(this.cargasFiltradas.length / this.itemsPerPage);
+    this.currentPage = 1;
+    this.updateCargasPaginadas();
+  }
+
+  // ====================================================
+  //   PAGINACIÓN
+  // ====================================================
   updateCargasPaginadas(): void {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
-    // De aquí en adelante, cargasFiltradas se mantiene intacta
     this.cargasPaginadas = this.cargasFiltradas.slice(startIndex, endIndex);
   }
 
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
-      this.updateCargasPaginadas(); // Actualizar las cargas visibles
+      this.updateCargasPaginadas();
     }
   }
 
@@ -120,31 +150,4 @@ export class CargasComponent implements OnInit {
       this.updateCargasPaginadas();
     }
   }
-
-
-  // Filtra las cargas según el vehículo seleccionado
-  filtrarCargas(): void {
-    console.log('Vehículo seleccionado:', this.vehiculoSeleccionado);
-
-    if (this.vehiculoSeleccionado === null) {
-      this.cargasFiltradas = [...this.cargas]; // Mostrar todas las cargas
-    } else {
-      this.cargasFiltradas = this.cargas.filter(
-        (carga) => carga.vehiculo === this.vehiculoSeleccionado
-      );
-    }
-
-    console.log('Cargas filtradas:', this.cargasFiltradas);
-
-    // Recalcular las páginas y actualizar la tabla visible
-    this.totalPages = Math.ceil(this.cargasFiltradas.length / this.itemsPerPage);
-    this.currentPage = 1; // Reinicia la paginación al aplicar el filtro
-    this.updateCargasPaginadas();
-  }
-
-
-
-
-
-
 }
