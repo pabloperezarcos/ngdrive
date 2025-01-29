@@ -62,7 +62,7 @@ try {
 
     // Vincular parámetros
     $stmt->bind_param(
-        "ssdddiddi", // Cambiado para reflejar los tipos correctos
+        "ssdddiidii", // Cambiado para reflejar los tipos correctos
         $data['fecha_carga'],
         $data['tipo_combustible'],
         $data['litros_cargados'],
