@@ -1,8 +1,10 @@
 <div class="container my-4">
     <h1 class="text-center">Cargas de Combustible</h1>
 
-    <!-- Filtro por vehículo -->
+    
+    <!-- Filtros -->
     <div class="d-flex justify-content-between mb-3">
+        <!-- Filtro por vehículo -->
         <div>
             <label for="vehiculoFiltro" class="form-label">Filtrar por Vehículo:</label>
             <select id="vehiculoFiltro" class="form-select" [(ngModel)]="vehiculoSeleccionado"
@@ -13,7 +15,30 @@
                 </option>
             </select>
         </div>
-        <button class="btn btn-primary" [routerLink]="['/registrar-carga']">Registrar Nueva Carga</button>
+
+        <!-- NUEVO: Filtro por mes -->
+        <div>
+            <label for="mesFiltro" class="form-label">Mes:</label>
+            <select id="mesFiltro" class="form-select" [(ngModel)]="selectedMonth" (change)="filtrarCargas()">
+                <option *ngFor="let m of months" [ngValue]="m.value">
+                    {{ m.label }}
+                </option>
+            </select>
+        </div>
+
+        <!-- NUEVO: Filtro por año -->
+        <div>
+            <label for="anioFiltro" class="form-label">Año:</label>
+            <select id="anioFiltro" class="form-select" [(ngModel)]="selectedYear" (change)="filtrarCargas()">
+                <option *ngFor="let y of years" [ngValue]="y">
+                    {{ y }}
+                </option>
+            </select>
+        </div>
+
+        <button class="btn btn-primary" [routerLink]="['/registrar-carga']">
+            Registrar Nueva Carga
+        </button>
     </div>
 
     <!-- Tabla de cargas -->
